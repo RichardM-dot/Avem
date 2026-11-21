@@ -16,6 +16,14 @@
 
 #include <avm_core.h>
 
+/**
+ * @brief  裸机入口：一行代码触发全系统初始化，然后空转
+ * @param  无（嵌入式 main 的 argc/argv 无意义）
+ * @return 不会返回（返回后由 Reset_Handler 的 while(1) 接住）
+ * @note   初始化完成后 MCU 真正的"工作循环"在 USART1_IRQHandler（avm_uart.c）：
+ *         收到上位机 '$' 命令才执行 读MPU→解算→PID→输出 一整轮，本版本
+ *         没有自主定时的控制中断——这是与正式版飞控最大的架构差异。
+ */
 int main() {
 	// #ifdef DEBUG_BLDC
 	// 	//Brushless motor auto init
